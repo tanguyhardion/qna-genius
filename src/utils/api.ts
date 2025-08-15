@@ -78,6 +78,7 @@ export async function fetchArticleFromUrl(url: string): Promise<string> {
     
     return text.trim();
   } catch (error) {
+    console.error('Error fetching article from URL:', error);
     throw new Error('Impossible de récupérer le contenu de l\'article. Veuillez coller le contenu manuellement.');
   }
 }
