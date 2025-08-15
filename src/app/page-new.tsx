@@ -31,15 +31,8 @@ export default function Home() {
     try {
       const response = await generateQuiz(content);
       
-      // Ensure we have a valid questions array
-      const questions = response?.questions || [];
-      
-      if (questions.length === 0) {
-        throw new Error('Aucune question n\'a pu être générée à partir de cet article.');
-      }
-      
       // Add unique IDs to questions if they don't have them
-      const questionsWithIds: QuizQuestion[] = questions.map((q, index) => ({
+      const questionsWithIds: QuizQuestion[] = response.questions.map((q, index) => ({
         ...q,
         id: q.id || `question-${index}`,
       }));
