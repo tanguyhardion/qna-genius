@@ -20,7 +20,6 @@ export default function QuizSummary({
   userAnswers,
   onRestart,
 }: QuizSummaryProps) {
-  const totalQuestions = questions.length;
   const answeredQuestions = userAnswers.length;
   const totalAttempts = userAnswers.reduce(
     (sum, answer) => sum + answer.attempts,

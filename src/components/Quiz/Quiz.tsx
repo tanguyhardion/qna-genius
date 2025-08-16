@@ -1,13 +1,11 @@
 import { useState, useRef, useEffect } from "react";
 import {
   HiChatBubbleLeftRight,
-  HiEye,
   HiEyeSlash,
   HiLightBulb,
   HiCheckCircle,
   HiArrowRight,
   HiFlag,
-  HiExclamationTriangle,
 } from "react-icons/hi2";
 import { QuizQuestion, UserAnswer } from "@/types";
 import { sendChatMessage } from "@/utils/api";
