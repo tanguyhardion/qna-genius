@@ -161,7 +161,7 @@ export default function Home() {
         >
           <HiExclamationTriangle className={styles.disclaimerIcon} />
           Les questions et réponses sont générées par une IA et peuvent contenir
-          des inexactitudes. Propulsé par GPT-4.1 Nano.
+          des inexactitudes. Propulsé par GPT-5 Nano.
         </span>
       </footer>
     </div>

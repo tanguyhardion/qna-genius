@@ -150,40 +150,6 @@ export default function Quiz({
           </div>
         )}
 
-        {/* Reveal Answer Section */}
-        <div className={styles.revealSection}>
-          {!showAnswer ? (
-            <button
-              type="button"
-              className={styles.revealButton}
-              onClick={() => setShowAnswer(true)}
-              title="Afficher la réponse correcte"
-            >
-              <HiLightBulb className={styles.revealIcon} />
-              Voir la réponse
-            </button>
-          ) : (
-            <div className={styles.answerReveal}>
-              <div className={styles.answerLabel}>
-                <HiCheckCircle className={styles.answerIcon} />
-                Réponse correcte :
-              </div>
-              <div className={styles.answerContent}>
-                {currentQuestion.answer}
-              </div>
-              <button
-                type="button"
-                className={styles.hideButton}
-                onClick={() => setShowAnswer(false)}
-                title="Masquer la réponse"
-              >
-                <HiEyeSlash className={styles.hideIcon} />
-                Masquer
-              </button>
-            </div>
-          )}
-        </div>
-
         <form onSubmit={handleSubmitAnswer} className={styles.answerForm}>
           <div className={styles.inputGroup}>
             <label htmlFor="answer" className={styles.label}>
@@ -214,7 +180,7 @@ export default function Quiz({
           <div className={styles.buttonGroup}>
             <button
               type="submit"
-              className="btn btn-primary"
+              className={`btn btn-primary ${styles.submitButton}`}
               disabled={!userInput.trim() || isLoading}
             >
               {isLoading ? (
@@ -225,7 +191,7 @@ export default function Quiz({
               ) : (
                 <>
                   <HiChatBubbleLeftRight />
-                  Envoyer la réponse
+                  Envoyer
                 </>
               )}
             </button>
@@ -263,6 +229,40 @@ export default function Quiz({
           <p className={styles.contextText}>{currentQuestion.context}</p>
         </div>
       )}
+
+      {/* Reveal Answer Section - Moved below quiz and context */}
+      <div className={styles.revealSection}>
+        {!showAnswer ? (
+          <button
+            type="button"
+            className={styles.revealButton}
+            onClick={() => setShowAnswer(true)}
+            title="Afficher la réponse correcte"
+          >
+            <HiLightBulb className={styles.revealIcon} />
+            Voir la réponse
+          </button>
+        ) : (
+          <div className={styles.answerReveal}>
+            <div className={styles.answerLabel}>
+              <HiCheckCircle className={styles.answerIcon} />
+              Réponse correcte :
+            </div>
+            <div className={styles.answerContent}>
+              {currentQuestion.answer}
+            </div>
+            <button
+              type="button"
+              className={styles.revealButton}
+              onClick={() => setShowAnswer(false)}
+              title="Masquer la réponse"
+            >
+              <HiEyeSlash className={styles.revealIcon} />
+              Masquer
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
