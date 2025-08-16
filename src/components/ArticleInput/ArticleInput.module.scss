@@ -12,9 +12,9 @@
   box-shadow: var(--shadow-xl);
   position: relative;
   overflow: hidden;
-  
+
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -65,12 +65,12 @@
   justify-content: center;
   gap: var(--spacing-sm);
   font-size: 0.95rem;
-  
+
   &:hover:not(.active) {
     background: rgba(79, 70, 229, 0.1);
     transform: translateY(-1px);
   }
-  
+
   &.active {
     background: var(--gradient-primary);
     color: white;
@@ -107,7 +107,7 @@
   font-family: inherit;
   line-height: 1.6;
   border-width: 2px;
-  
+
   &:focus {
     border-width: 2px;
   }
@@ -116,7 +116,7 @@
 .input {
   font-size: 1rem;
   border-width: 2px;
-  
+
   &:focus {
     border-width: 2px;
   }
@@ -151,7 +151,7 @@
   font-size: 1.125rem;
   padding: var(--spacing-lg) var(--spacing-2xl);
   font-weight: 700;
-  
+
   @media (max-width: 768px) {
     font-size: 1rem;
     padding: var(--spacing-md) var(--spacing-xl);

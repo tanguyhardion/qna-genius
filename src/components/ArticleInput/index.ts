@@ -1,1 +1,1 @@
-export { default } from './ArticleInput';
+export { default } from "./ArticleInput";

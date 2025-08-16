@@ -39,17 +39,14 @@ Q&A Genius is a modern Next.js application that transforms your articles into in
 ## 📖 How to Use
 
 1. **Enter content**:
-
    - Paste the text of your article directly, or
    - Provide the article URL for automatic fetching
 
 2. **Generate the quiz**:
-
    - Click "Generate Quiz"
    - Wait for the AI to generate 10 questions
 
 3. **Answer the questions**:
-
    - Answer each question in the text area
    - Receive personalized feedback from the AI assistant
    - Move to the next question

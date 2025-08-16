@@ -15,15 +15,20 @@
   overflow: hidden;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
   position: relative;
-  
+
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.2) 50%, transparent 100%);
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.2) 50%,
+      transparent 100%
+    );
     animation: shimmer 2s infinite;
   }
 }
@@ -35,15 +40,20 @@
   border-radius: var(--border-radius-sm);
   position: relative;
   overflow: hidden;
-  
+
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.3) 50%,
+      transparent 100%
+    );
     animation: progressShine 1.5s ease-in-out;
   }
 }
@@ -55,9 +65,9 @@
   padding: var(--spacing-2xl);
   box-shadow: var(--shadow-xl);
   position: relative;
-  
+
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -101,7 +111,7 @@
   margin-bottom: var(--spacing-xl);
   line-height: 1.4;
   letter-spacing: -0.025em;
-  
+
   @media (max-width: 768px) {
     font-size: 1.375rem;
   }
@@ -131,7 +141,7 @@
 
 .chatMessage {
   margin-bottom: var(--spacing-lg);
-  
+
   &:last-child {
     margin-bottom: 0;
   }
@@ -146,9 +156,9 @@
   box-shadow: var(--shadow-sm);
   color: var(--foreground);
   position: relative;
-  
+
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: -5px;
     left: var(--spacing-lg);
@@ -180,7 +190,7 @@
   align-items: center;
   gap: var(--spacing-sm);
   box-shadow: var(--shadow-md);
-  
+
   &:hover {
     background: #b45309;
     transform: translateY(-2px);
@@ -238,7 +248,7 @@
   align-items: center;
   gap: var(--spacing-xs);
   font-size: 0.875rem;
-  
+
   &:hover {
     background: var(--secondary-hover);
     transform: translateY(-1px);
@@ -273,7 +283,7 @@
   font-family: inherit;
   line-height: 1.6;
   border-width: 2px;
-  
+
   &:focus {
     border-width: 2px;
   }
@@ -287,16 +297,16 @@
   display: flex;
   gap: var(--spacing-lg);
   flex-wrap: wrap;
-  
+
   @media (max-width: 640px) {
     flex-direction: column;
     gap: var(--spacing-md);
   }
-  
+
   .btn {
     flex: 1;
     min-width: 200px;
-    
+
     @media (max-width: 640px) {
       min-width: auto;
     }
@@ -365,16 +375,16 @@
   .chatHistory {
     background: var(--info-light);
   }
-  
+
   .attempts {
     background: var(--primary-light);
     color: var(--primary-color);
   }
-  
+
   .contextCard {
     background: var(--warning-light);
   }
-  
+
   .contextText {
     color: var(--foreground);
   }

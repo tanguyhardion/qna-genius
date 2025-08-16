@@ -23,7 +23,7 @@ export interface UserAnswer {
 }
 
 export interface AppState {
-  step: 'input' | 'quiz' | 'completed';
+  step: "input" | "quiz" | "completed";
   articleContent: string;
   questions: QuizQuestion[];
   currentQuestionIndex: number;

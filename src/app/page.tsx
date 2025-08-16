@@ -1,19 +1,19 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { HiExclamationTriangle, HiXMark } from 'react-icons/hi2';
-import { AppState, QuizQuestion, UserAnswer } from '@/types';
-import { generateQuiz } from '@/utils/api';
-import Header from '@/components/Header';
-import ArticleInput from '@/components/ArticleInput';
-import Quiz from '@/components/Quiz';
-import QuizSummary from '@/components/QuizSummary';
-import styles from './page.module.scss';
+import { useState } from "react";
+import { HiExclamationTriangle, HiXMark } from "react-icons/hi2";
+import { AppState, QuizQuestion, UserAnswer } from "@/types";
+import { generateQuiz } from "@/utils/api";
+import Header from "@/components/Header";
+import ArticleInput from "@/components/ArticleInput";
+import Quiz from "@/components/Quiz";
+import QuizSummary from "@/components/QuizSummary";
+import styles from "./page.module.scss";
 
 export default function Home() {
   const [appState, setAppState] = useState<AppState>({
-    step: 'input',
-    articleContent: '',
+    step: "input",
+    articleContent: "",
     questions: [],
     currentQuestionIndex: 0,
     userAnswers: [],
@@ -22,7 +22,7 @@ export default function Home() {
   });
 
   const handleArticleSubmit = async (content: string) => {
-    setAppState(prev => ({
+    setAppState((prev) => ({
       ...prev,
       isLoading: true,
       error: null,
@@ -31,65 +31,73 @@ export default function Home() {
 
     try {
       const response = await generateQuiz(content);
-      
+
       // Ensure we have a valid questions array
       const questions = response?.questions || [];
-      
+
       if (questions.length === 0) {
-        throw new Error('Aucune question n\'a pu être générée à partir de cet article.');
+        throw new Error(
+          "Aucune question n'a pu être générée à partir de cet article.",
+        );
       }
-      
+
       // Add unique IDs to questions if they don't have them
       const questionsWithIds: QuizQuestion[] = questions.map((q, index) => ({
         ...q,
         id: q.id || `question-${index}`,
       }));
 
-      setAppState(prev => ({
+      setAppState((prev) => ({
         ...prev,
         questions: questionsWithIds,
-        step: 'quiz',
+        step: "quiz",
         isLoading: false,
         currentQuestionIndex: 0,
         userAnswers: [],
       }));
     } catch (error) {
-      setAppState(prev => ({
+      setAppState((prev) => ({
         ...prev,
-        error: error instanceof Error ? error.message : 'Erreur lors de la génération du quiz.',
+        error:
+          error instanceof Error
+            ? error.message
+            : "Erreur lors de la génération du quiz.",
         isLoading: false,
       }));
     }
   };
 
   const handleAnswerUpdate = (answer: UserAnswer) => {
-    setAppState(prev => ({
+    setAppState((prev) => ({
       ...prev,
       userAnswers: [
-        ...prev.userAnswers.filter(a => a.questionId !== answer.questionId),
+        ...prev.userAnswers.filter((a) => a.questionId !== answer.questionId),
         answer,
       ],
     }));
   };
 
   const handleNext = () => {
-    setAppState(prev => ({
+    setAppState((prev) => ({
       ...prev,
-      currentQuestionIndex: Math.min(prev.currentQuestionIndex + 1, prev.questions.length - 1),
+      currentQuestionIndex: Math.min(
+        prev.currentQuestionIndex + 1,
+        prev.questions.length - 1,
+      ),
     }));
   };
 
   const handleComplete = () => {
-    setAppState(prev => ({
+    setAppState((prev) => ({
       ...prev,
-      step: 'completed',
+      step: "completed",
     }));
   };
 
   const handleRestart = () => {
     setAppState({
-      step: 'input',
-      articleContent: '',
+      step: "input",
+      articleContent: "",
       questions: [],
       currentQuestionIndex: 0,
       userAnswers: [],
@@ -107,8 +115,10 @@ export default function Home() {
             <div className={`alert alert-error ${styles.errorContent}`}>
               <HiExclamationTriangle className={styles.errorIcon} />
               <span className={styles.errorText}>{appState.error}</span>
-              <button 
-                onClick={() => setAppState(prev => ({ ...prev, error: null }))}
+              <button
+                onClick={() =>
+                  setAppState((prev) => ({ ...prev, error: null }))
+                }
                 className={styles.errorClose}
                 aria-label="Fermer l'erreur"
               >
@@ -118,14 +128,14 @@ export default function Home() {
           </div>
         )}
 
-        {appState.step === 'input' && (
+        {appState.step === "input" && (
           <ArticleInput
             onSubmit={handleArticleSubmit}
             isLoading={appState.isLoading}
           />
         )}
 
-        {appState.step === 'quiz' && appState.questions.length > 0 && (
+        {appState.step === "quiz" && appState.questions.length > 0 && (
           <Quiz
             questions={appState.questions}
             currentQuestionIndex={appState.currentQuestionIndex}
@@ -136,7 +146,7 @@ export default function Home() {
           />
         )}
 
-        {appState.step === 'completed' && (
+        {appState.step === "completed" && (
           <QuizSummary
             questions={appState.questions}
             userAnswers={appState.userAnswers}
@@ -145,9 +155,12 @@ export default function Home() {
         )}
       </main>
       <footer className={styles.disclaimer}>
-        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5em' }}>
+        <span
+          style={{ display: "inline-flex", alignItems: "center", gap: "0.5em" }}
+        >
           <HiExclamationTriangle className={styles.disclaimerIcon} />
-         Questions and answers are generated by AI and may contain inaccuracies. Powered by GPT-4.1 Nano.
+          Les questions et réponses sont générées par une IA et peuvent contenir
+          des inexactitudes. Propulsé par GPT-4.1 Nano.
         </span>
       </footer>
     </div>

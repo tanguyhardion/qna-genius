@@ -15,7 +15,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Q&A Genius",
-  description: "Générez des quiz interactifs à partir d'articles et améliorez votre apprentissage",
+  description:
+    "Générez des quiz interactifs à partir d'articles et améliorez votre apprentissage",
 };
 
 export default function RootLayout({

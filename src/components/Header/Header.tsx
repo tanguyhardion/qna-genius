@@ -1,5 +1,5 @@
-import { HiLightBulb } from 'react-icons/hi2';
-import styles from './Header.module.scss';
+import { HiLightBulb } from "react-icons/hi2";
+import styles from "./Header.module.scss";
 
 export default function Header() {
   return (
@@ -10,7 +10,8 @@ export default function Header() {
           Q&A Genius
         </h1>
         <p className={styles.subtitle}>
-          Transformez vos articles en quiz interactifs et apprenez plus efficacement
+          Transformez vos articles en quiz interactifs et apprenez plus
+          efficacement
         </p>
       </div>
     </header>

@@ -1,9 +1,18 @@
-import { useState } from 'react';
-import { HiChatBubbleLeftRight, HiEye, HiEyeSlash, HiLightBulb, HiCheckCircle, HiArrowRight, HiFlag, HiExclamationTriangle } from 'react-icons/hi2';
-import { QuizQuestion, UserAnswer } from '@/types';
-import { sendChatMessage } from '@/utils/api';
-import LoadingSpinner from '@/components/LoadingSpinner';
-import styles from './Quiz.module.scss';
+import { useState } from "react";
+import {
+  HiChatBubbleLeftRight,
+  HiEye,
+  HiEyeSlash,
+  HiLightBulb,
+  HiCheckCircle,
+  HiArrowRight,
+  HiFlag,
+  HiExclamationTriangle,
+} from "react-icons/hi2";
+import { QuizQuestion, UserAnswer } from "@/types";
+import { sendChatMessage } from "@/utils/api";
+import LoadingSpinner from "@/components/LoadingSpinner";
+import styles from "./Quiz.module.scss";
 
 interface QuizProps {
   questions: QuizQuestion[];
@@ -22,13 +31,15 @@ export default function Quiz({
   onNext,
   onComplete,
 }: QuizProps) {
-  const [userInput, setUserInput] = useState('');
+  const [userInput, setUserInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showAnswer, setShowAnswer] = useState(false);
 
   const currentQuestion = questions[currentQuestionIndex];
-  const currentAnswer = userAnswers.find(a => a.questionId === currentQuestion.id);
+  const currentAnswer = userAnswers.find(
+    (a) => a.questionId === currentQuestion.id,
+  );
   const isLastQuestion = currentQuestionIndex === questions.length - 1;
 
   const handleSubmitAnswer = async (e: React.FormEvent) => {
@@ -44,20 +55,27 @@ export default function Quiz({
         currentQuestion.answer,
         currentQuestion.context,
         userInput.trim(),
-        currentAnswer?.attempts || 0
+        currentAnswer?.attempts || 0,
       );
 
       const newAnswer: UserAnswer = {
         questionId: currentQuestion.id,
         answer: userInput.trim(),
         attempts: response.attemptCount,
-        chatResponses: [...(currentAnswer?.chatResponses || []), response.response],
+        chatResponses: [
+          ...(currentAnswer?.chatResponses || []),
+          response.response,
+        ],
       };
 
       onAnswerUpdate(newAnswer);
-      setUserInput('');
+      setUserInput("");
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Erreur lors de l\'envoi de la réponse.');
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Erreur lors de l'envoi de la réponse.",
+      );
     } finally {
       setIsLoading(false);
     }
@@ -72,17 +90,18 @@ export default function Quiz({
     }
   };
 
-  const progressPercentage = ((currentQuestionIndex + 1) / questions.length) * 100;
+  const progressPercentage =
+    ((currentQuestionIndex + 1) / questions.length) * 100;
 
   return (
     <div className={styles.container}>
       <div className={styles.progressBar}>
-        <div 
+        <div
           className={styles.progressFill}
           style={{ width: `${progressPercentage}%` }}
         ></div>
       </div>
-      
+
       <div className={styles.questionCard}>
         <div className={styles.questionHeader}>
           <span className={styles.questionNumber}>
@@ -90,7 +109,8 @@ export default function Quiz({
           </span>
           {currentAnswer && (
             <span className={styles.attempts}>
-              {currentAnswer.attempts} tentative{currentAnswer.attempts > 1 ? 's' : ''}
+              {currentAnswer.attempts} tentative
+              {currentAnswer.attempts > 1 ? "s" : ""}
             </span>
           )}
         </div>
@@ -129,7 +149,9 @@ export default function Quiz({
                 <HiCheckCircle className={styles.answerIcon} />
                 Réponse correcte :
               </div>
-              <div className={styles.answerContent}>{currentQuestion.answer}</div>
+              <div className={styles.answerContent}>
+                {currentQuestion.answer}
+              </div>
               <button
                 type="button"
                 className={styles.hideButton}
@@ -185,7 +207,8 @@ export default function Quiz({
               )}
             </button>
 
-            {(currentAnswer && currentAnswer.chatResponses.length > 0) || showAnswer ? (
+            {(currentAnswer && currentAnswer.chatResponses.length > 0) ||
+            showAnswer ? (
               <button
                 type="button"
                 className="btn btn-secondary"
