@@ -243,6 +243,33 @@
   font-size: 1.25rem;
 }
 
+.sparkleIcon {
+  font-size: 1rem;
+  color: var(--ai-amber);
+  animation: sparkle 2s ease-in-out infinite;
+  margin-left: 0.25rem;
+}
+
+@keyframes sparkle {
+  0%,
+  100% {
+    transform: rotate(0deg) scale(1);
+    opacity: 0.8;
+  }
+  25% {
+    transform: rotate(90deg) scale(1.1);
+    opacity: 1;
+  }
+  50% {
+    transform: rotate(180deg) scale(0.9);
+    opacity: 0.6;
+  }
+  75% {
+    transform: rotate(270deg) scale(1.05);
+    opacity: 0.9;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   .inputTypeSelector {
     background: var(--secondary-light);

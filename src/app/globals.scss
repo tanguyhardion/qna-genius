@@ -54,6 +54,20 @@
   --mobile-spacing-lg: 1rem;
   --mobile-spacing-xl: 1.25rem;
   --mobile-spacing-2xl: 1.5rem;
+
+  /* AI-themed colors and effects */
+  --ai-blue: #60a5fa;
+  --ai-purple: #a855f7;
+  --ai-cyan: #06b6d4;
+  --ai-amber: #fbbf24;
+  --ai-gradient: linear-gradient(
+    135deg,
+    var(--ai-blue) 0%,
+    var(--ai-purple) 50%,
+    var(--ai-cyan) 100%
+  );
+  --ai-glow: 0 0 20px rgba(96, 165, 250, 0.3);
+  --ai-glow-strong: 0 0 30px rgba(96, 165, 250, 0.5);
 }
 
 @media (prefers-color-scheme: dark) {

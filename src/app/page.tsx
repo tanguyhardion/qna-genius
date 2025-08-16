@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { HiExclamationTriangle } from "react-icons/hi2";
+import { FaCircleExclamation } from "react-icons/fa6";
 import { AppState, QuizQuestion, UserAnswer } from "@/types";
 import { generateQuiz } from "@/utils/api";
 import { useToast } from "@/hooks/useToast";
@@ -146,8 +146,8 @@ export default function Home() {
         <span
           style={{ display: "inline-flex", alignItems: "center", gap: "0.5em" }}
         >
-          <HiExclamationTriangle className={styles.disclaimerIcon} />
-          Les questions et réponses sont générées par une IA et peuvent contenir
+          <FaCircleExclamation className={styles.disclaimerIcon} />
+          Les questions et réponses sont générées par l'IA et peuvent contenir
           des inexactitudes. Propulsé par GPT-5 Nano.
         </span>
       </footer>

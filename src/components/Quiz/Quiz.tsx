@@ -1,12 +1,11 @@
 import { useState, useRef, useEffect } from "react";
 import {
   HiChatBubbleLeftRight,
-  HiEyeSlash,
-  HiLightBulb,
   HiCheckCircle,
-  HiArrowRight,
   HiFlag,
 } from "react-icons/hi2";
+import { FaArrowRight, FaEye, FaEyeSlash, FaFileAlt  } from "react-icons/fa";
+import { IoSend } from "react-icons/io5";
 import { QuizQuestion, UserAnswer } from "@/types";
 import { sendChatMessage } from "@/utils/api";
 import { useToast } from "@/hooks/useToast";
@@ -41,7 +40,7 @@ export default function Quiz({
 
   const currentQuestion = questions[currentQuestionIndex];
   const currentAnswer = userAnswers.find(
-    (a) => a.questionId === currentQuestion.id,
+    (a) => a.questionId === currentQuestion.id
   );
   const isLastQuestion = currentQuestionIndex === questions.length - 1;
 
@@ -84,7 +83,7 @@ export default function Quiz({
         currentQuestion.answer,
         currentQuestion.context,
         userInput.trim(),
-        currentAnswer?.attempts || 0,
+        currentAnswer?.attempts || 0
       );
 
       const newAnswer: UserAnswer = {
@@ -194,7 +193,7 @@ export default function Quiz({
                 </>
               ) : (
                 <>
-                  <HiChatBubbleLeftRight />
+                  <IoSend size={20} />
                   Envoyer
                 </>
               )}
@@ -214,7 +213,7 @@ export default function Quiz({
                   </>
                 ) : (
                   <>
-                    <HiArrowRight />
+                    <FaArrowRight />
                     Question suivante
                   </>
                 )}
@@ -227,7 +226,7 @@ export default function Quiz({
       {currentQuestion.context && (
         <div className={styles.contextCard}>
           <h3 className={styles.contextTitle}>
-            <HiLightBulb className={styles.contextIcon} />
+            <FaFileAlt className={styles.contextIcon} />
             Contexte :
           </h3>
           <p className={styles.contextText}>{currentQuestion.context}</p>
@@ -243,7 +242,7 @@ export default function Quiz({
             onClick={() => setShowAnswer(true)}
             title="Afficher la réponse correcte"
           >
-            <HiLightBulb className={styles.revealIcon} />
+            <FaEye className={styles.revealIcon} />
             Voir la réponse
           </button>
         ) : (
@@ -252,16 +251,14 @@ export default function Quiz({
               <HiCheckCircle className={styles.answerIcon} />
               Réponse correcte :
             </div>
-            <div className={styles.answerContent}>
-              {currentQuestion.answer}
-            </div>
+            <div className={styles.answerContent}>{currentQuestion.answer}</div>
             <button
               type="button"
               className={styles.revealButton}
               onClick={() => setShowAnswer(false)}
               title="Masquer la réponse"
             >
-              <HiEyeSlash className={styles.revealIcon} />
+              <FaEyeSlash className={styles.revealIcon} />
               Masquer
             </button>
           </div>

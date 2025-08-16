@@ -1,10 +1,8 @@
 import { useState, useRef, useEffect } from "react";
-import {
-  HiDocument,
-  HiLink,
-  HiExclamationTriangle,
-  HiRocketLaunch,
-} from "react-icons/hi2";
+import { FaCircleExclamation } from "react-icons/fa6";
+import { FaLink } from "react-icons/fa6";
+import { FaPaste } from "react-icons/fa6";
+import { VscSparkleFilled } from "react-icons/vsc";
 import { fetchArticleFromUrl } from "@/utils/api";
 import { useToast } from "@/hooks/useToast";
 import LoadingSpinner from "@/components/LoadingSpinner";
@@ -89,8 +87,8 @@ export default function ArticleInput({
       <div className={styles.card}>
         <h2 className={styles.title}>Commencez votre quiz</h2>
         <p className={styles.description}>
-          Collez le contenu d'un article ou fournissez une URL pour générer
-          automatiquement un quiz de 10 questions.
+          Collez le contenu d'un article ou fournissez une URL et notre IA
+          générera un quiz de 10 questions sur son contenu.
         </p>
 
         <div className={styles.inputTypeSelector}>
@@ -101,7 +99,7 @@ export default function ArticleInput({
             }`}
             onClick={() => setInputType("text")}
           >
-            <HiDocument className={styles.tabIcon} />
+            <FaPaste className={styles.tabIcon} />
             Coller le texte
           </button>
           <button
@@ -111,7 +109,7 @@ export default function ArticleInput({
             }`}
             onClick={() => setInputType("url")}
           >
-            <HiLink className={styles.tabIcon} />
+            <FaLink className={styles.tabIcon} />
             URL de l'article
           </button>
         </div>
@@ -152,7 +150,7 @@ export default function ArticleInput({
                 disabled={isLoading || isLoadingUrl}
               />
               <p className={styles.urlNote}>
-                <HiExclamationTriangle className={styles.warningIcon} />
+                <FaCircleExclamation className={styles.warningIcon} />
                 Certaines pages peuvent ne pas être récupérées par raison de
                 sécurité ou de contenu dynamique.
               </p>
@@ -173,7 +171,7 @@ export default function ArticleInput({
               </>
             ) : (
               <>
-                <HiRocketLaunch className={styles.submitIcon} />
+                <VscSparkleFilled className={styles.submitIcon} />
                 Générer le quiz
               </>
             )}
