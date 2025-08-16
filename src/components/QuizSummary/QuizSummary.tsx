@@ -1,11 +1,6 @@
-import {
-  HiTrophy,
-  HiClipboardDocumentList,
-  HiCheckCircle,
-  HiLightBulb,
-  HiChatBubbleLeftRight,
-  HiArrowPath,
-} from "react-icons/hi2";
+import { FaClipboardList, FaTrophy, FaScroll, FaComments } from "react-icons/fa";
+import { FaRotate } from "react-icons/fa6";
+import { FaCheckCircle } from "react-icons/fa";
 import { QuizQuestion, UserAnswer } from "@/types";
 import styles from "./QuizSummary.module.scss";
 
@@ -32,7 +27,7 @@ export default function QuizSummary({
       <div className={styles.summaryCard}>
         <div className={styles.header}>
           <h2 className={styles.title}>
-            <HiTrophy className={styles.titleIcon} />
+            <FaTrophy className={styles.titleIcon} />
             Quiz terminé !
           </h2>
           <p className={styles.subtitle}>
@@ -60,7 +55,7 @@ export default function QuizSummary({
 
         <div className={styles.questionsReview}>
           <h3 className={styles.reviewTitle}>
-            <HiClipboardDocumentList className={styles.reviewIcon} />
+            <FaClipboardList className={styles.reviewIcon} />
             Récapitulatif des questions
           </h3>
           <div className={styles.questionsList}>
@@ -86,7 +81,7 @@ export default function QuizSummary({
                   <div className={styles.answers}>
                     <div className={styles.correctAnswer}>
                       <strong>
-                        <HiCheckCircle className={styles.answerIcon} />
+                        <FaCheckCircle className={styles.answerIcon} />
                         Réponse attendue :
                       </strong>
                       <p>{question.answer}</p>
@@ -95,7 +90,7 @@ export default function QuizSummary({
                     {userAnswer && (
                       <div className={styles.userResponse}>
                         <strong>
-                          <HiLightBulb className={styles.answerIcon} />
+                          <FaScroll className={styles.answerIcon} />
                           Votre dernière réponse :
                         </strong>
                         <p>{userAnswer.answer}</p>
@@ -103,7 +98,7 @@ export default function QuizSummary({
                         {userAnswer.chatResponses.length > 0 && (
                           <div className={styles.aiResponses}>
                             <strong>
-                              <HiChatBubbleLeftRight
+                              <FaComments
                                 className={styles.answerIcon}
                               />
                               Retours de l'assistant :
@@ -131,13 +126,14 @@ export default function QuizSummary({
             })}
           </div>
         </div>
+      </div>
 
-        <div className={styles.actions}>
-          <button onClick={onRestart} className="btn btn-primary">
-            <HiArrowPath className={styles.actionIcon} />
-            Recommencer avec un nouvel article
-          </button>
-        </div>
+      {/* Fixed restart button at bottom of page */}
+      <div className={styles.fixedRestartButton}>
+        <button onClick={onRestart} className="btn btn-primary">
+          <FaRotate className={styles.actionIcon} />
+          Recommencer avec un nouvel article
+        </button>
       </div>
     </div>
   );

@@ -277,7 +277,6 @@
 
 .reviewIcon {
   font-size: 1.5rem;
-  color: var(--primary-color);
 }
 
 .questionsList {
@@ -484,6 +483,52 @@
   font-size: 0.875rem;
   display: block;
   margin-bottom: var(--spacing-xs);
+}
+
+/* Fixed restart button at bottom of page */
+.fixedRestartButton {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+
+  .btn {
+    font-size: 1.125rem;
+    padding: var(--spacing-lg) var(--spacing-2xl);
+    min-width: 280px;
+    box-shadow: var(--shadow-xl); /* Restore button shadow */
+    
+    @media (max-width: 768px) {
+      font-size: 1rem;
+      padding: var(--spacing-md) var(--spacing-xl);
+      min-width: 240px;
+    }
+    
+    @media (max-width: 640px) {
+      min-width: auto;
+      width: auto;
+      padding: var(--spacing-md) var(--spacing-lg);
+    }
+    
+    @media (max-width: 480px) {
+      font-size: 0.95rem;
+      padding: var(--spacing-sm) var(--spacing-lg);
+    }
+
+    /* Hover effect for the button */
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-2xl);
+      transition: all 0.2s ease;
+    }
+  }
+
+  @media (max-width: 640px) {
+    left: var(--spacing-md);
+    right: var(--spacing-md);
+    transform: none;
+  }
 }
 
 .actions {

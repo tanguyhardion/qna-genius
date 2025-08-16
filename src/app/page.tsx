@@ -112,9 +112,45 @@ export default function Home() {
     });
   };
 
+  const handleDevModeTest = () => {
+    const mockQuestions: QuizQuestion[] = [
+      {
+        id: "dev-question-1",
+        question: "What is React?",
+        answer: "React is a JavaScript library for building user interfaces, particularly web applications. It was developed by Facebook and is known for its component-based architecture and virtual DOM.",
+        context: "React is one of the most popular frontend frameworks in modern web development."
+      },
+      {
+        id: "dev-question-2", 
+        question: "What is the purpose of useState hook?",
+        answer: "The useState hook is used to add state management to functional components in React. It returns an array with the current state value and a function to update it.",
+        context: "React hooks were introduced to allow functional components to have state and lifecycle methods."
+      }
+    ];
+
+    setAppState((prev) => ({
+      ...prev,
+      questions: mockQuestions,
+      step: "quiz",
+      currentQuestionIndex: 0,
+      userAnswers: [],
+      articleContent: "Mock article content for testing",
+    }));
+
+    toast.success("Dev mode: Mock quiz loaded!");
+  };
+
   return (
     <div className={styles.page}>
       <Header />
+      {process.env.NODE_ENV === 'development' && (
+        <button 
+          onClick={handleDevModeTest}
+          className={styles.devButton}
+        >
+          Dev: Load Test Quiz
+        </button>
+      )}
       <main className={styles.main}>
         {appState.step === "input" && (
           <ArticleInput

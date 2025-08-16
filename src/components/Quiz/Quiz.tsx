@@ -1,10 +1,13 @@
 import { useState, useRef, useEffect } from "react";
+import { HiChatBubbleLeftRight } from "react-icons/hi2";
 import {
-  HiChatBubbleLeftRight,
-  HiCheckCircle,
-  HiFlag,
-} from "react-icons/hi2";
-import { FaArrowRight, FaEye, FaEyeSlash, FaFileAlt  } from "react-icons/fa";
+  FaArrowRight,
+  FaCheckCircle,
+  FaEye,
+  FaEyeSlash,
+  FaFileAlt,
+  FaFlag,
+} from "react-icons/fa";
 import { IoSend } from "react-icons/io5";
 import { QuizQuestion, UserAnswer } from "@/types";
 import { sendChatMessage } from "@/utils/api";
@@ -208,7 +211,7 @@ export default function Quiz({
               >
                 {isLastQuestion ? (
                   <>
-                    <HiFlag />
+                    <FaFlag />
                     Terminer le quiz
                   </>
                 ) : (
@@ -248,7 +251,7 @@ export default function Quiz({
         ) : (
           <div className={styles.answerReveal}>
             <div className={styles.answerLabel}>
-              <HiCheckCircle className={styles.answerIcon} />
+              <FaCheckCircle className={styles.answerIcon} />
               Réponse correcte :
             </div>
             <div className={styles.answerContent}>{currentQuestion.answer}</div>
