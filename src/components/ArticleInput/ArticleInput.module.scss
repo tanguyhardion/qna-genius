@@ -1,5 +1,3 @@
-@import "../../styles/shared-components.scss";
-
 .container {
   max-width: 900px;
   margin: var(--spacing-2xl) auto;
@@ -181,7 +179,6 @@
 }
 
 .textarea {
-  @extend .textarea-with-scrollbar;
   min-height: 120px;
   max-height: 480px;
 }

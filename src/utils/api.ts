@@ -1,6 +1,9 @@
 import { QuizResponse, ChatResponse } from "@/types";
 
-const API_BASE_URL = "https://langchain-serverless.vercel.app/api";
+const API_BASE_URL =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3001/api"
+    : "https://langchain-serverless.vercel.app/api";
 
 export async function generateQuiz(content: string): Promise<QuizResponse> {
   const response = await fetch(`${API_BASE_URL}/quiz`, {
@@ -27,7 +30,7 @@ export async function sendChatMessage(
   answer: string,
   context: string,
   userMessage: string,
-  attemptCount: number = 0,
+  attemptCount: number = 0
 ): Promise<ChatResponse> {
   const response = await fetch(`${API_BASE_URL}/chat`, {
     method: "POST",
@@ -54,33 +57,36 @@ export async function sendChatMessage(
 
 export async function fetchArticleFromUrl(url: string): Promise<string> {
   try {
-    // For a real implementation, you'd need a backend service to fetch the content
-    // For now, we'll use a simple fetch with CORS proxy or show an error
-    const response = await fetch(url);
+    // Use the backend extractor endpoint which fetches the URL server-side and returns text
+    const response = await fetch(`${API_BASE_URL}/extract-text`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ url }),
+    });
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch article: ${response.statusText}`);
+      // Try to parse error details from the backend
+      const errBody = await response.json().catch(() => null);
+      const msg =
+        errBody?.error ||
+        response.statusText ||
+        "Failed to extract article text";
+      throw new Error(msg);
     }
 
-    const html = await response.text();
+    const data = await response.json();
 
-    // Basic HTML parsing to extract text content
-    // In a real app, you'd want more sophisticated parsing
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, "text/html");
+    if (!data || typeof data.text !== "string") {
+      throw new Error("No text returned from extractor");
+    }
 
-    // Remove script and style elements
-    const scripts = doc.querySelectorAll("script, style");
-    scripts.forEach((el) => el.remove());
-
-    // Get text content
-    const text = doc.body?.textContent || doc.textContent || "";
-
-    return text.trim();
+    return data.text.trim();
   } catch (error) {
-    console.error("Error fetching article from URL:", error);
+    console.error("Error extracting article text:", error);
     throw new Error(
-      "Impossible de récupérer le contenu de l'article. Veuillez coller le contenu manuellement.",
+      "Impossible de récupérer le contenu de l'article. Veuillez coller le contenu manuellement."
     );
   }
 }

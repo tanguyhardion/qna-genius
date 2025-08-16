@@ -132,7 +132,7 @@ export default function ArticleInput({
                   requestAnimationFrame(adjustTextareaHeight);
                 }}
                 placeholder="Collez ici le contenu de votre article..."
-                className={styles.textarea}
+                className={`${styles.textarea} textarea-with-scrollbar`}
                 rows={3}
                 disabled={isLoading}
               />

@@ -37,6 +37,7 @@ export default function Quiz({
   const [showAnswer, setShowAnswer] = useState(false);
 
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+  const chatHistoryRef = useRef<HTMLDivElement | null>(null);
   const MAX_TEXTAREA_HEIGHT = 200; // px — grows until this height, then scrolls
 
   const currentQuestion = questions[currentQuestionIndex];
@@ -60,6 +61,17 @@ export default function Quiz({
     // adjust whenever userInput changes
     adjustTextareaHeight();
   }, [userInput]);
+
+  // Auto-scroll to bottom of chat history when new responses are added
+  useEffect(() => {
+    if (chatHistoryRef.current && currentAnswer?.chatResponses.length) {
+      const chatContainer = chatHistoryRef.current;
+      // Use setTimeout to ensure DOM is fully updated before scrolling
+      setTimeout(() => {
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+      }, 100);
+    }
+  }, [currentAnswer?.chatResponses.length]);
 
   const handleSubmitAnswer = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -137,7 +149,7 @@ export default function Quiz({
         <h2 className={styles.questionText}>{currentQuestion.question}</h2>
 
         {currentAnswer && currentAnswer.chatResponses.length > 0 && (
-          <div className={styles.chatHistory}>
+          <div className={styles.chatHistory} ref={chatHistoryRef}>
             <h3 className={styles.chatTitle}>
               <HiChatBubbleLeftRight className={styles.chatIcon} />
               Réponses de l'assistant :
@@ -164,7 +176,7 @@ export default function Quiz({
                 requestAnimationFrame(adjustTextareaHeight);
               }}
               placeholder="Tapez votre réponse ici..."
-              className={styles.textarea}
+              className={`${styles.textarea} textarea-with-scrollbar`}
               rows={4}
               disabled={isLoading}
             />
