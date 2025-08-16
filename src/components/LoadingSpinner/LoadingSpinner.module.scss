@@ -5,6 +5,16 @@
   justify-content: center;
   gap: var(--spacing-md);
   padding: var(--spacing-lg);
+
+  @media (max-width: 768px) {
+    gap: var(--mobile-spacing-sm);
+    padding: var(--mobile-spacing-md);
+  }
+
+  @media (max-width: 480px) {
+    gap: var(--spacing-xs);
+    padding: var(--mobile-spacing-sm);
+  }
 }
 
 .spinner {

@@ -153,8 +153,8 @@ export default function ArticleInput({
               />
               <p className={styles.urlNote}>
                 <HiExclamationTriangle className={styles.warningIcon} />
-                La récupération d'URL peut ne pas fonctionner avec tous les
-                sites en raison des restrictions CORS.
+                Certaines pages peuvent ne pas être récupérées par raison de
+                sécurité ou de contenu dynamique.
               </p>
             </div>
           )}

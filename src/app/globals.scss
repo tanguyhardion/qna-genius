@@ -46,6 +46,14 @@
   --spacing-lg: 1.5rem;
   --spacing-xl: 2rem;
   --spacing-2xl: 3rem;
+
+  /* Mobile-first responsive spacing */
+  --container-padding: 1rem;
+  --container-padding-sm: 0.75rem;
+  --mobile-spacing-md: 0.75rem;
+  --mobile-spacing-lg: 1rem;
+  --mobile-spacing-xl: 1.25rem;
+  --mobile-spacing-2xl: 1.5rem;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -138,6 +146,15 @@ textarea {
     color: var(--secondary-color);
     opacity: 0.7;
   }
+
+  @media (max-width: 768px) {
+    padding: 0.75rem 0.875rem;
+    font-size: 16px; /* Prevent zoom on iOS */
+  }
+
+  @media (max-width: 480px) {
+    padding: 0.625rem 0.75rem;
+  }
 }
 
 .btn {
@@ -176,6 +193,18 @@ textarea {
     left: 100%;
   }
 
+  @media (max-width: 768px) {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.9rem;
+    gap: 0.375rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0.625rem 1rem;
+    font-size: 0.875rem;
+    min-height: 44px; /* Minimum touch target */
+  }
+
   &.btn-primary {
     background: var(--gradient-primary);
     color: white;
@@ -189,6 +218,12 @@ textarea {
     &:active {
       transform: translateY(0);
     }
+
+    @media (max-width: 768px) {
+      &:hover:not(:disabled) {
+        transform: translateY(-1px); /* Reduced transform on mobile */
+      }
+    }
   }
 
   &.btn-secondary {
@@ -201,6 +236,12 @@ textarea {
       transform: translateY(-2px);
       box-shadow: var(--shadow-md);
     }
+
+    @media (max-width: 768px) {
+      &:hover:not(:disabled) {
+        transform: translateY(-1px);
+      }
+    }
   }
 
   &.btn-success {
@@ -211,6 +252,12 @@ textarea {
     &:hover:not(:disabled) {
       transform: translateY(-2px);
       box-shadow: var(--shadow-md);
+    }
+
+    @media (max-width: 768px) {
+      &:hover:not(:disabled) {
+        transform: translateY(-1px);
+      }
     }
   }
 
@@ -233,6 +280,19 @@ textarea {
   &:hover {
     box-shadow: var(--shadow-lg);
     transform: translateY(-2px);
+  }
+
+  @media (max-width: 768px) {
+    padding: var(--mobile-spacing-lg);
+    border-radius: var(--border-radius);
+
+    &:hover {
+      transform: translateY(-1px);
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: var(--mobile-spacing-md);
   }
 }
 
@@ -352,5 +412,42 @@ textarea {
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
+  }
+}
+
+/* Mobile-specific responsive utilities */
+@media (max-width: 768px) {
+  :root {
+    --container-padding: 0.75rem;
+    --spacing-md: var(--mobile-spacing-md);
+    --spacing-lg: var(--mobile-spacing-lg);
+    --spacing-xl: var(--mobile-spacing-xl);
+    --spacing-2xl: var(--mobile-spacing-2xl);
+  }
+
+  .btn-block-mobile {
+    width: 100%;
+  }
+
+  .text-center-mobile {
+    text-align: center;
+  }
+
+  .hide-mobile {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --container-padding: var(--container-padding-sm);
+  }
+
+  /* Ensure touch targets are at least 44px */
+  button,
+  input[type="button"],
+  input[type="submit"],
+  .btn {
+    min-height: 44px;
   }
 }
