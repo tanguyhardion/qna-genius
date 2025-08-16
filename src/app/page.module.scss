@@ -1,3 +1,8 @@
+.disclaimerIcon {
+  font-size: 1.1rem;
+  vertical-align: middle;
+  color: #888;
+}
 .page {
   min-height: 100vh;
   background: var(--background);
@@ -64,4 +69,12 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.disclaimer {
+  text-align: center;
+  font-size: 0.8rem;
+  color: #888;
+  margin-top: 2rem;
+  padding: 1rem 0;
 }
