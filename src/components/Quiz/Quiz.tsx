@@ -11,6 +11,7 @@ import {
 } from "react-icons/hi2";
 import { QuizQuestion, UserAnswer } from "@/types";
 import { sendChatMessage } from "@/utils/api";
+import { useToast } from "@/hooks/useToast";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import styles from "./Quiz.module.scss";
 
@@ -31,9 +32,9 @@ export default function Quiz({
   onNext,
   onComplete,
 }: QuizProps) {
+  const toast = useToast();
   const [userInput, setUserInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const [showAnswer, setShowAnswer] = useState(false);
 
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
@@ -78,7 +79,6 @@ export default function Quiz({
     if (!userInput.trim()) return;
 
     setIsLoading(true);
-    setError(null);
 
     try {
       const response = await sendChatMessage(
@@ -101,12 +101,13 @@ export default function Quiz({
 
       onAnswerUpdate(newAnswer);
       setUserInput("");
+      toast.success("Réponse envoyée avec succès !");
     } catch (err) {
-      setError(
+      const errorMessage =
         err instanceof Error
           ? err.message
-          : "Erreur lors de l'envoi de la réponse.",
-      );
+          : "Erreur lors de l'envoi de la réponse.";
+      toast.error(errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -181,13 +182,6 @@ export default function Quiz({
               disabled={isLoading}
             />
           </div>
-
-          {error && (
-            <div className={`alert alert-error ${styles.error}`}>
-              <HiExclamationTriangle />
-              {error}
-            </div>
-          )}
 
           <div className={styles.buttonGroup}>
             <button

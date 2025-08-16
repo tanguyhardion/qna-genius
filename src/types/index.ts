@@ -29,5 +29,4 @@ export interface AppState {
   currentQuestionIndex: number;
   userAnswers: UserAnswer[];
   isLoading: boolean;
-  error: string | null;
 }

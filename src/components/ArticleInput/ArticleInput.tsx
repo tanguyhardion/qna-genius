@@ -3,10 +3,10 @@ import {
   HiDocument,
   HiLink,
   HiExclamationTriangle,
-  HiXMark,
   HiRocketLaunch,
 } from "react-icons/hi2";
 import { fetchArticleFromUrl } from "@/utils/api";
+import { useToast } from "@/hooks/useToast";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import styles from "./ArticleInput.module.scss";
 
@@ -19,27 +19,26 @@ export default function ArticleInput({
   onSubmit,
   isLoading,
 }: ArticleInputProps) {
+  const toast = useToast();
   const [content, setContent] = useState("");
   const [url, setUrl] = useState("");
   const [inputType, setInputType] = useState<"text" | "url">("text");
-  const [error, setError] = useState<string | null>(null);
   const [isLoadingUrl, setIsLoadingUrl] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const MAX_TEXTAREA_HEIGHT = 480; // px — grows until this height, then scrolls
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError(null);
 
     if (inputType === "text") {
       if (!content.trim()) {
-        setError("Veuillez saisir le contenu de l'article.");
+        toast.error("Veuillez saisir le contenu de l'article.");
         return;
       }
       onSubmit(content.trim());
     } else {
       if (!url.trim()) {
-        setError("Veuillez saisir une URL valide.");
+        toast.error("Veuillez saisir une URL valide.");
         return;
       }
 
@@ -50,12 +49,13 @@ export default function ArticleInput({
           throw new Error("Aucun contenu trouvé à cette URL.");
         }
         onSubmit(articleContent);
+        toast.success("Article récupéré avec succès !");
       } catch (err) {
-        setError(
+        const errorMessage =
           err instanceof Error
             ? err.message
-            : "Erreur lors de la récupération de l'article.",
-        );
+            : "Erreur lors de la récupération de l'article.";
+        toast.error(errorMessage);
       } finally {
         setIsLoadingUrl(false);
       }
@@ -156,13 +156,6 @@ export default function ArticleInput({
                 Certaines pages peuvent ne pas être récupérées par raison de
                 sécurité ou de contenu dynamique.
               </p>
-            </div>
-          )}
-
-          {error && (
-            <div className={`alert alert-error ${styles.error}`}>
-              <HiXMark className={styles.errorIcon} />
-              {error}
             </div>
           )}
 

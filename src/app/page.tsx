@@ -1,17 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import { HiExclamationTriangle, HiXMark } from "react-icons/hi2";
+import { HiExclamationTriangle } from "react-icons/hi2";
 import { AppState, QuizQuestion, UserAnswer } from "@/types";
 import { generateQuiz } from "@/utils/api";
+import { useToast } from "@/hooks/useToast";
 import Header from "@/components/Header";
 import ArticleInput from "@/components/ArticleInput";
 import Quiz from "@/components/Quiz";
 import QuizSummary from "@/components/QuizSummary";
 import styles from "./page.module.scss";
-import LoadingSpinner from "@/components/LoadingSpinner";
 
 export default function Home() {
+  const toast = useToast();
   const [appState, setAppState] = useState<AppState>({
     step: "input",
     articleContent: "",
@@ -19,14 +20,12 @@ export default function Home() {
     currentQuestionIndex: 0,
     userAnswers: [],
     isLoading: false,
-    error: null,
   });
 
   const handleArticleSubmit = async (content: string) => {
     setAppState((prev) => ({
       ...prev,
       isLoading: true,
-      error: null,
       articleContent: content,
     }));
 
@@ -38,7 +37,7 @@ export default function Home() {
 
       if (questions.length === 0) {
         throw new Error(
-          "Aucune question n'a pu être générée à partir de cet article.",
+          "Aucune question n'a pu être générée à partir de cet article."
         );
       }
 
@@ -56,13 +55,20 @@ export default function Home() {
         currentQuestionIndex: 0,
         userAnswers: [],
       }));
+
+      toast.success(
+        `Quiz généré avec succès ! ${questionsWithIds.length} questions créées.`
+      );
     } catch (error) {
+      let errorMessage = "Erreur lors de la génération du quiz.";
+      if (error instanceof Error) {
+        errorMessage += ` Détails : ${error.message}`;
+      }
+
+      toast.error(errorMessage);
+
       setAppState((prev) => ({
         ...prev,
-        error:
-          error instanceof Error
-            ? error.message
-            : "Erreur lors de la génération du quiz.",
         isLoading: false,
       }));
     }
@@ -83,7 +89,7 @@ export default function Home() {
       ...prev,
       currentQuestionIndex: Math.min(
         prev.currentQuestionIndex + 1,
-        prev.questions.length - 1,
+        prev.questions.length - 1
       ),
     }));
   };
@@ -103,7 +109,6 @@ export default function Home() {
       currentQuestionIndex: 0,
       userAnswers: [],
       isLoading: false,
-      error: null,
     });
   };
 
@@ -111,24 +116,6 @@ export default function Home() {
     <div className={styles.page}>
       <Header />
       <main className={styles.main}>
-        {appState.error && (
-          <div className={styles.errorBanner}>
-            <div className={`alert alert-error ${styles.errorContent}`}>
-              <HiExclamationTriangle className={styles.errorIcon} />
-              <span className={styles.errorText}>{appState.error}</span>
-              <button
-                onClick={() =>
-                  setAppState((prev) => ({ ...prev, error: null }))
-                }
-                className={styles.errorClose}
-                aria-label="Fermer l'erreur"
-              >
-                <HiXMark />
-              </button>
-            </div>
-          </div>
-        )}
-
         {appState.step === "input" && (
           <ArticleInput
             onSubmit={handleArticleSubmit}
