@@ -185,7 +185,7 @@ export default function Quiz({
               )}
             </button>
 
-            {currentAnswer && currentAnswer.chatResponses.length > 0 && (
+            {(currentAnswer && currentAnswer.chatResponses.length > 0) || showAnswer ? (
               <button
                 type="button"
                 className="btn btn-secondary"
@@ -203,7 +203,7 @@ export default function Quiz({
                   </>
                 )}
               </button>
-            )}
+            ) : null}
           </div>
         </form>
       </div>
