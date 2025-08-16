@@ -37,7 +37,7 @@ export default function QuizSummary({ questions, userAnswers, onRestart }: QuizS
             <div className={styles.statLabel}>Total des tentatives</div>
           </div>
           <div className={styles.statCard}>
-            <div className={styles.statValue}>{averageAttempts.toFixed(1)}</div>
+            <div className={styles.statValue}>{averageAttempts ? averageAttempts.toFixed(2) : '0'}</div>
             <div className={styles.statLabel}>Moyenne par question</div>
           </div>
         </div>
