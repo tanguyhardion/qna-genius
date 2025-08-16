@@ -23,6 +23,7 @@ export default function Quiz({
   const [userInput, setUserInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showAnswer, setShowAnswer] = useState(false);
 
   const currentQuestion = questions[currentQuestionIndex];
   const currentAnswer = userAnswers.find(a => a.questionId === currentQuestion.id);
@@ -61,6 +62,7 @@ export default function Quiz({
   };
 
   const handleNext = () => {
+    setShowAnswer(false); // Reset answer visibility for next question
     if (isLastQuestion) {
       onComplete();
     } else {
@@ -103,6 +105,33 @@ export default function Quiz({
             ))}
           </div>
         )}
+
+        {/* Reveal Answer Section */}
+        <div className={styles.revealSection}>
+          {!showAnswer ? (
+            <button
+              type="button"
+              className={styles.revealButton}
+              onClick={() => setShowAnswer(true)}
+              title="Afficher la réponse correcte"
+            >
+              💡 Voir la réponse
+            </button>
+          ) : (
+            <div className={styles.answerReveal}>
+              <div className={styles.answerLabel}>✅ Réponse correcte :</div>
+              <div className={styles.answerContent}>{currentQuestion.answer}</div>
+              <button
+                type="button"
+                className={styles.hideButton}
+                onClick={() => setShowAnswer(false)}
+                title="Masquer la réponse"
+              >
+                👁️ Masquer
+              </button>
+            </div>
+          )}
+        </div>
 
         <form onSubmit={handleSubmitAnswer} className={styles.answerForm}>
           <div className={styles.inputGroup}>
