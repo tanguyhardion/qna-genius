@@ -1,3 +1,4 @@
+import { HiTrophy, HiClipboardDocumentList, HiCheckCircle, HiLightBulb, HiChatBubbleLeftRight, HiArrowPath } from 'react-icons/hi2';
 import { QuizQuestion, UserAnswer } from '@/types';
 import styles from './QuizSummary.module.scss';
 
@@ -17,7 +18,10 @@ export default function QuizSummary({ questions, userAnswers, onRestart }: QuizS
     <div className={styles.container}>
       <div className={styles.summaryCard}>
         <div className={styles.header}>
-          <h2 className={styles.title}>🎉 Quiz terminé !</h2>
+          <h2 className={styles.title}>
+            <HiTrophy className={styles.titleIcon} />
+            Quiz terminé !
+          </h2>
           <p className={styles.subtitle}>
             Félicitations ! Vous avez terminé le quiz. Voici un résumé de votre performance.
           </p>
@@ -39,7 +43,10 @@ export default function QuizSummary({ questions, userAnswers, onRestart }: QuizS
         </div>
 
         <div className={styles.questionsReview}>
-          <h3 className={styles.reviewTitle}>📋 Récapitulatif des questions</h3>
+          <h3 className={styles.reviewTitle}>
+            <HiClipboardDocumentList className={styles.reviewIcon} />
+            Récapitulatif des questions
+          </h3>
           <div className={styles.questionsList}>
             {questions.map((question, index) => {
               const userAnswer = userAnswers.find(a => a.questionId === question.id);
@@ -57,18 +64,27 @@ export default function QuizSummary({ questions, userAnswers, onRestart }: QuizS
                   
                   <div className={styles.answers}>
                     <div className={styles.correctAnswer}>
-                      <strong>✅ Réponse attendue :</strong>
+                      <strong>
+                        <HiCheckCircle className={styles.answerIcon} />
+                        Réponse attendue :
+                      </strong>
                       <p>{question.answer}</p>
                     </div>
                     
                     {userAnswer && (
                       <div className={styles.userResponse}>
-                        <strong>💭 Votre dernière réponse :</strong>
+                        <strong>
+                          <HiLightBulb className={styles.answerIcon} />
+                          Votre dernière réponse :
+                        </strong>
                         <p>{userAnswer.answer}</p>
                         
                         {userAnswer.chatResponses.length > 0 && (
                           <div className={styles.aiResponses}>
-                            <strong>🤖 Retours de l'assistant :</strong>
+                            <strong>
+                              <HiChatBubbleLeftRight className={styles.answerIcon} />
+                              Retours de l'assistant :
+                            </strong>
                             {userAnswer.chatResponses.map((response, responseIndex) => (
                               <div key={responseIndex} className={styles.aiResponse}>
                                 <span className={styles.responseNumber}>
@@ -93,7 +109,8 @@ export default function QuizSummary({ questions, userAnswers, onRestart }: QuizS
             onClick={onRestart}
             className="btn btn-primary"
           >
-            🔄 Recommencer avec un nouvel article
+            <HiArrowPath className={styles.actionIcon} />
+            Recommencer avec un nouvel article
           </button>
         </div>
       </div>

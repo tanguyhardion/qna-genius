@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { HiChatBubbleLeftRight, HiEye, HiEyeSlash, HiLightBulb, HiCheckCircle, HiArrowRight, HiFlag, HiExclamationTriangle } from 'react-icons/hi2';
 import { QuizQuestion, UserAnswer } from '@/types';
 import { sendChatMessage } from '@/utils/api';
+import LoadingSpinner from '@/components/LoadingSpinner';
 import styles from './Quiz.module.scss';
 
 interface QuizProps {
@@ -97,7 +99,10 @@ export default function Quiz({
 
         {currentAnswer && currentAnswer.chatResponses.length > 0 && (
           <div className={styles.chatHistory}>
-            <h3 className={styles.chatTitle}>💬 Réponses de l'assistant :</h3>
+            <h3 className={styles.chatTitle}>
+              <HiChatBubbleLeftRight className={styles.chatIcon} />
+              Réponses de l'assistant :
+            </h3>
             {currentAnswer.chatResponses.map((response, index) => (
               <div key={index} className={styles.chatMessage}>
                 <div className={styles.chatContent}>{response}</div>
@@ -115,11 +120,15 @@ export default function Quiz({
               onClick={() => setShowAnswer(true)}
               title="Afficher la réponse correcte"
             >
-              💡 Voir la réponse
+              <HiLightBulb className={styles.revealIcon} />
+              Voir la réponse
             </button>
           ) : (
             <div className={styles.answerReveal}>
-              <div className={styles.answerLabel}>✅ Réponse correcte :</div>
+              <div className={styles.answerLabel}>
+                <HiCheckCircle className={styles.answerIcon} />
+                Réponse correcte :
+              </div>
               <div className={styles.answerContent}>{currentQuestion.answer}</div>
               <button
                 type="button"
@@ -127,7 +136,8 @@ export default function Quiz({
                 onClick={() => setShowAnswer(false)}
                 title="Masquer la réponse"
               >
-                👁️ Masquer
+                <HiEyeSlash className={styles.hideIcon} />
+                Masquer
               </button>
             </div>
           )}
@@ -150,8 +160,9 @@ export default function Quiz({
           </div>
 
           {error && (
-            <div className={styles.error}>
-              ❌ {error}
+            <div className={`alert alert-error ${styles.error}`}>
+              <HiExclamationTriangle />
+              {error}
             </div>
           )}
 
@@ -163,11 +174,14 @@ export default function Quiz({
             >
               {isLoading ? (
                 <>
-                  <span className="loading"></span>
+                  <LoadingSpinner size="small" />
                   Envoi en cours...
                 </>
               ) : (
-                '💬 Envoyer la réponse'
+                <>
+                  <HiChatBubbleLeftRight />
+                  Envoyer la réponse
+                </>
               )}
             </button>
 
@@ -177,7 +191,17 @@ export default function Quiz({
                 className="btn btn-secondary"
                 onClick={handleNext}
               >
-                {isLastQuestion ? '🏁 Terminer le quiz' : '➡️ Question suivante'}
+                {isLastQuestion ? (
+                  <>
+                    <HiFlag />
+                    Terminer le quiz
+                  </>
+                ) : (
+                  <>
+                    <HiArrowRight />
+                    Question suivante
+                  </>
+                )}
               </button>
             )}
           </div>
@@ -186,7 +210,10 @@ export default function Quiz({
 
       {currentQuestion.context && (
         <div className={styles.contextCard}>
-          <h3 className={styles.contextTitle}>📚 Contexte :</h3>
+          <h3 className={styles.contextTitle}>
+            <HiLightBulb className={styles.contextIcon} />
+            Contexte :
+          </h3>
           <p className={styles.contextText}>{currentQuestion.context}</p>
         </div>
       )}

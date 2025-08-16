@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { HiExclamationTriangle, HiXMark } from 'react-icons/hi2';
 import { AppState, QuizQuestion, UserAnswer } from '@/types';
 import { generateQuiz } from '@/utils/api';
 import Header from '@/components/Header';
@@ -104,14 +105,15 @@ export default function Home() {
       <main className={styles.main}>
         {appState.error && (
           <div className={styles.errorBanner}>
-            <div className={styles.errorContent}>
-              <span className={styles.errorIcon}>⚠️</span>
+            <div className={`alert alert-error ${styles.errorContent}`}>
+              <HiExclamationTriangle className={styles.errorIcon} />
               <span className={styles.errorText}>{appState.error}</span>
               <button 
                 onClick={() => setAppState(prev => ({ ...prev, error: null }))}
                 className={styles.errorClose}
+                aria-label="Fermer l'erreur"
               >
-                ✕
+                <HiXMark />
               </button>
             </div>
           </div>

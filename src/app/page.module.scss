@@ -7,28 +7,25 @@
 
 .main {
   flex: 1;
-  padding-bottom: 2rem;
+  padding-bottom: var(--spacing-2xl);
 }
 
 .errorBanner {
-  background: #fef2f2;
-  border-bottom: 1px solid #fecaca;
-  padding: 1rem 0;
-  margin-bottom: 2rem;
+  padding: var(--spacing-lg) 0;
+  margin-bottom: var(--spacing-xl);
+  animation: slideDown 0.3s ease-out;
 }
 
 .errorContent {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  color: #dc2626;
+  padding: 0 var(--spacing-md);
+  border-radius: var(--border-radius);
+  position: relative;
 }
 
 .errorIcon {
-  font-size: 1.25rem;
+  font-size: 1.125rem;
 }
 
 .errorText {
@@ -39,33 +36,32 @@
 .errorClose {
   background: transparent;
   border: none;
-  color: #dc2626;
-  font-size: 1.25rem;
-  padding: 0.25rem;
+  color: inherit;
+  padding: var(--spacing-xs);
   cursor: pointer;
-  border-radius: 4px;
-  transition: background-color 0.2s ease-in-out;
+  border-radius: var(--border-radius-sm);
+  transition: all 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   
   &:hover {
-    background: rgba(220, 38, 38, 0.1);
+    background: rgba(0, 0, 0, 0.1);
+    transform: scale(1.1);
+  }
+  
+  svg {
+    font-size: 1.125rem;
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  .errorBanner {
-    background: #7f1d1d;
-    border-bottom-color: #dc2626;
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
   }
-  
-  .errorContent {
-    color: #fca5a5;
-  }
-  
-  .errorClose {
-    color: #fca5a5;
-    
-    &:hover {
-      background: rgba(252, 165, 165, 0.1);
-    }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

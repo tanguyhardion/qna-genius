@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { HiDocument, HiLink, HiExclamationTriangle, HiXMark, HiRocketLaunch } from 'react-icons/hi2';
 import { fetchArticleFromUrl } from '@/utils/api';
+import LoadingSpinner from '@/components/LoadingSpinner';
 import styles from './ArticleInput.module.scss';
 
 interface ArticleInputProps {
@@ -62,14 +64,16 @@ export default function ArticleInput({ onSubmit, isLoading }: ArticleInputProps)
             className={`${styles.tabButton} ${inputType === 'text' ? styles.active : ''}`}
             onClick={() => setInputType('text')}
           >
-            📝 Coller le texte
+            <HiDocument className={styles.tabIcon} />
+            Coller le texte
           </button>
           <button
             type="button"
             className={`${styles.tabButton} ${inputType === 'url' ? styles.active : ''}`}
             onClick={() => setInputType('url')}
           >
-            🔗 URL de l'article
+            <HiLink className={styles.tabIcon} />
+            URL de l'article
           </button>
         </div>
 
@@ -104,14 +108,16 @@ export default function ArticleInput({ onSubmit, isLoading }: ArticleInputProps)
                 disabled={isLoading || isLoadingUrl}
               />
               <p className={styles.urlNote}>
-                ⚠️ La récupération d'URL peut ne pas fonctionner avec tous les sites en raison des restrictions CORS.
+                <HiExclamationTriangle className={styles.warningIcon} />
+                La récupération d'URL peut ne pas fonctionner avec tous les sites en raison des restrictions CORS.
               </p>
             </div>
           )}
 
           {error && (
-            <div className={styles.error}>
-              ❌ {error}
+            <div className={`alert alert-error ${styles.error}`}>
+              <HiXMark className={styles.errorIcon} />
+              {error}
             </div>
           )}
 
@@ -122,11 +128,14 @@ export default function ArticleInput({ onSubmit, isLoading }: ArticleInputProps)
           >
             {isLoading || isLoadingUrl ? (
               <>
-                <span className="loading"></span>
+                <LoadingSpinner />
                 {isLoadingUrl ? 'Récupération de l\'article...' : 'Génération du quiz...'}
               </>
             ) : (
-              '🚀 Générer le quiz'
+              <>
+                <HiRocketLaunch className={styles.submitIcon} />
+                Générer le quiz
+              </>
             )}
           </button>
         </form>
