@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   HiDocument,
   HiLink,
@@ -24,6 +24,8 @@ export default function ArticleInput({
   const [inputType, setInputType] = useState<"text" | "url">("text");
   const [error, setError] = useState<string | null>(null);
   const [isLoadingUrl, setIsLoadingUrl] = useState(false);
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+  const MAX_TEXTAREA_HEIGHT = 480; // px — grows until this height, then scrolls
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -59,6 +61,23 @@ export default function ArticleInput({
       }
     }
   };
+
+  const adjustTextareaHeight = () => {
+    const el = textareaRef.current;
+    if (!el) return;
+    // reset height to measure scrollHeight correctly
+    el.style.height = "auto";
+    const newHeight = Math.min(el.scrollHeight, MAX_TEXTAREA_HEIGHT);
+    el.style.height = `${newHeight}px`;
+    el.style.overflow =
+      el.scrollHeight > MAX_TEXTAREA_HEIGHT ? "auto" : "hidden";
+  };
+
+  useEffect(() => {
+    // adjust whenever content or input type changes
+    if (inputType === "text") adjustTextareaHeight();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [content, inputType]);
 
   const isSubmitDisabled =
     isLoading ||
@@ -105,11 +124,16 @@ export default function ArticleInput({
               </label>
               <textarea
                 id="content"
+                ref={textareaRef}
                 value={content}
-                onChange={(e) => setContent(e.target.value)}
+                onChange={(e) => {
+                  setContent(e.target.value);
+                  // immediate adjust for smoother UX
+                  requestAnimationFrame(adjustTextareaHeight);
+                }}
                 placeholder="Collez ici le contenu de votre article..."
                 className={styles.textarea}
-                rows={10}
+                rows={3}
                 disabled={isLoading}
               />
             </div>

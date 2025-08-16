@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   HiChatBubbleLeftRight,
   HiEye,
@@ -36,11 +36,30 @@ export default function Quiz({
   const [error, setError] = useState<string | null>(null);
   const [showAnswer, setShowAnswer] = useState(false);
 
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+  const MAX_TEXTAREA_HEIGHT = 200; // px — grows until this height, then scrolls
+
   const currentQuestion = questions[currentQuestionIndex];
   const currentAnswer = userAnswers.find(
     (a) => a.questionId === currentQuestion.id,
   );
   const isLastQuestion = currentQuestionIndex === questions.length - 1;
+
+  const adjustTextareaHeight = () => {
+    const el = textareaRef.current;
+    if (!el) return;
+    // reset height to measure scrollHeight correctly
+    el.style.height = "auto";
+    const newHeight = Math.min(el.scrollHeight, MAX_TEXTAREA_HEIGHT);
+    el.style.height = `${newHeight}px`;
+    el.style.overflow =
+      el.scrollHeight > MAX_TEXTAREA_HEIGHT ? "auto" : "hidden";
+  };
+
+  useEffect(() => {
+    // adjust whenever userInput changes
+    adjustTextareaHeight();
+  }, [userInput]);
 
   const handleSubmitAnswer = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -172,8 +191,12 @@ export default function Quiz({
             </label>
             <textarea
               id="answer"
+              ref={textareaRef}
               value={userInput}
-              onChange={(e) => setUserInput(e.target.value)}
+              onChange={(e) => {
+                setUserInput(e.target.value);
+                requestAnimationFrame(adjustTextareaHeight);
+              }}
               placeholder="Tapez votre réponse ici..."
               className={styles.textarea}
               rows={4}

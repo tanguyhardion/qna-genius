@@ -9,6 +9,7 @@ import ArticleInput from "@/components/ArticleInput";
 import Quiz from "@/components/Quiz";
 import QuizSummary from "@/components/QuizSummary";
 import styles from "./page.module.scss";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 export default function Home() {
   const [appState, setAppState] = useState<AppState>({
