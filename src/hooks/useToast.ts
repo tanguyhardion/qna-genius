@@ -1,4 +1,4 @@
-import toast from 'react-hot-toast';
+import toast from "react-hot-toast";
 
 export const useToast = () => {
   const showSuccess = (message: string) => {
@@ -11,7 +11,7 @@ export const useToast = () => {
 
   const showInfo = (message: string) => {
     toast(message, {
-      icon: 'ℹ️',
+      icon: "ℹ️",
     });
   };
 
@@ -23,13 +23,13 @@ export const useToast = () => {
     toast.dismiss(toastId);
   };
 
-  const promise = <T,>(
+  const promise = <T>(
     promise: Promise<T>,
     messages: {
       loading: string;
       success: string | ((data: T) => string);
       error: string | ((error: Error) => string);
-    }
+    },
   ) => {
     return toast.promise(promise, messages);
   };

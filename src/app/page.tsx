@@ -37,7 +37,7 @@ export default function Home() {
 
       if (questions.length === 0) {
         throw new Error(
-          "Aucune question n'a pu être générée à partir de cet article."
+          "Aucune question n'a pu être générée à partir de cet article.",
         );
       }
 
@@ -57,7 +57,7 @@ export default function Home() {
       }));
 
       toast.success(
-        `Quiz généré avec succès ! ${questionsWithIds.length} questions créées.`
+        `Quiz généré avec succès ! ${questionsWithIds.length} questions créées.`,
       );
     } catch (error) {
       let errorMessage = "Erreur lors de la génération du quiz.";
@@ -89,7 +89,7 @@ export default function Home() {
       ...prev,
       currentQuestionIndex: Math.min(
         prev.currentQuestionIndex + 1,
-        prev.questions.length - 1
+        prev.questions.length - 1,
       ),
     }));
   };
@@ -117,15 +117,19 @@ export default function Home() {
       {
         id: "dev-question-1",
         question: "What is React?",
-        answer: "React is a JavaScript library for building user interfaces, particularly web applications. It was developed by Facebook and is known for its component-based architecture and virtual DOM.",
-        context: "React is one of the most popular frontend frameworks in modern web development."
+        answer:
+          "React is a JavaScript library for building user interfaces, particularly web applications. It was developed by Facebook and is known for its component-based architecture and virtual DOM.",
+        context:
+          "React is one of the most popular frontend frameworks in modern web development.",
       },
       {
-        id: "dev-question-2", 
+        id: "dev-question-2",
         question: "What is the purpose of useState hook?",
-        answer: "The useState hook is used to add state management to functional components in React. It returns an array with the current state value and a function to update it.",
-        context: "React hooks were introduced to allow functional components to have state and lifecycle methods."
-      }
+        answer:
+          "The useState hook is used to add state management to functional components in React. It returns an array with the current state value and a function to update it.",
+        context:
+          "React hooks were introduced to allow functional components to have state and lifecycle methods.",
+      },
     ];
 
     setAppState((prev) => ({
@@ -143,11 +147,8 @@ export default function Home() {
   return (
     <div className={styles.page}>
       <Header />
-      {process.env.NODE_ENV === 'development' && (
-        <button 
-          onClick={handleDevModeTest}
-          className={styles.devButton}
-        >
+      {process.env.NODE_ENV === "development" && (
+        <button onClick={handleDevModeTest} className={styles.devButton}>
           Dev: Load Test Quiz
         </button>
       )}

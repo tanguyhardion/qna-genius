@@ -43,7 +43,7 @@ export default function Quiz({
 
   const currentQuestion = questions[currentQuestionIndex];
   const currentAnswer = userAnswers.find(
-    (a) => a.questionId === currentQuestion.id
+    (a) => a.questionId === currentQuestion.id,
   );
   const isLastQuestion = currentQuestionIndex === questions.length - 1;
 
@@ -86,7 +86,7 @@ export default function Quiz({
         currentQuestion.answer,
         currentQuestion.context,
         userInput.trim(),
-        currentAnswer?.attempts || 0
+        currentAnswer?.attempts || 0,
       );
 
       const newAnswer: UserAnswer = {
