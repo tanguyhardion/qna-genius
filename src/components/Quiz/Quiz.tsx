@@ -5,7 +5,6 @@ import {
   FaCheckCircle,
   FaEye,
   FaEyeSlash,
-  FaFileAlt,
   FaFlag,
   FaSearchPlus,
   FaSearch,

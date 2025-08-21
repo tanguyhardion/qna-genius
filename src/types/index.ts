@@ -7,6 +7,14 @@ export interface QuizQuestion {
   contextSmall: string;
 }
 
+export interface BackendQuizItem {
+  question: string;
+  answer: string;
+  contextLarge: string;
+  contextMedium: string;
+  contextSmall: string;
+}
+
 export interface QuizResponse {
   questions: QuizQuestion[];
 }

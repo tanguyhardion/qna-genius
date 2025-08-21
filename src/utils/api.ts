@@ -1,4 +1,4 @@
-import { QuizResponse, ChatResponse } from "@/types";
+import { QuizResponse, ChatResponse, BackendQuizItem } from "@/types";
 
 const API_BASE_URL =
   process.env.NODE_ENV === "development"
@@ -22,7 +22,7 @@ export async function generateQuiz(content: string): Promise<QuizResponse> {
 
   // Map the backend response to frontend format
   const questions = (data.items || data.questions || []).map(
-    (item: any, index: number) => ({
+    (item: BackendQuizItem, index: number) => ({
       id: `question-${index}`,
       question: item.question,
       answer: item.answer,

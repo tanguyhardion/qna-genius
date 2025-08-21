@@ -119,7 +119,11 @@ export default function Home() {
         question: "What is React?",
         answer:
           "React is a JavaScript library for building user interfaces, particularly web applications. It was developed by Facebook and is known for its component-based architecture and virtual DOM.",
-        context:
+        contextLarge:
+          "React is one of the most popular frontend frameworks in modern web development. It revolutionized how we build user interfaces by introducing concepts like the virtual DOM, component-based architecture, and unidirectional data flow.",
+        contextMedium:
+          "React is one of the most popular frontend frameworks in modern web development. It revolutionized how we build user interfaces.",
+        contextSmall:
           "React is one of the most popular frontend frameworks in modern web development.",
       },
       {
@@ -127,8 +131,12 @@ export default function Home() {
         question: "What is the purpose of useState hook?",
         answer:
           "The useState hook is used to add state management to functional components in React. It returns an array with the current state value and a function to update it.",
-        context:
-          "React hooks were introduced to allow functional components to have state and lifecycle methods.",
+        contextLarge:
+          "React hooks were introduced to allow functional components to have state and lifecycle methods. The useState hook specifically enables functional components to manage local state, which was previously only possible with class components.",
+        contextMedium:
+          "React hooks were introduced to allow functional components to have state and lifecycle methods. The useState hook enables state management in functional components.",
+        contextSmall:
+          "The useState hook enables functional components to manage local state in React.",
       },
     ];
 
