@@ -143,7 +143,9 @@ export default function Quiz({
       const response = await sendChatMessage(
         currentQuestion.question,
         currentQuestion.answer,
-        getContextToShow(),
+        currentQuestion.contextLarge,
+        currentQuestion.contextMedium,
+        currentQuestion.contextSmall,
         userInput.trim(),
         currentAnswer?.attempts || 0,
       );

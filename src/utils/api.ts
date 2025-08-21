@@ -40,7 +40,9 @@ export async function generateQuiz(content: string): Promise<QuizResponse> {
 export async function sendChatMessage(
   question: string,
   answer: string,
-  context: string,
+  contextLarge: string,
+  contextMedium: string,
+  contextSmall: string,
   userMessage: string,
   attemptCount: number = 0
 ): Promise<ChatResponse> {
@@ -53,7 +55,9 @@ export async function sendChatMessage(
       qaData: {
         question,
         answer,
-        context,
+        contextLarge,
+        contextMedium,
+        contextSmall,
       },
       userMessage,
       attemptCount,
