@@ -20,8 +20,20 @@ export async function generateQuiz(content: string): Promise<QuizResponse> {
 
   const data = await response.json();
 
+  // Map the backend response to frontend format
+  const questions = (data.items || data.questions || []).map(
+    (item: any, index: number) => ({
+      id: `question-${index}`,
+      question: item.question,
+      answer: item.answer,
+      contextLarge: item.contextLarge,
+      contextMedium: item.contextMedium,
+      contextSmall: item.contextSmall,
+    })
+  );
+
   return {
-    questions: data.items || data.questions || [],
+    questions,
   };
 }
 
@@ -30,7 +42,7 @@ export async function sendChatMessage(
   answer: string,
   context: string,
   userMessage: string,
-  attemptCount: number = 0,
+  attemptCount: number = 0
 ): Promise<ChatResponse> {
   const response = await fetch(`${API_BASE_URL}/chat`, {
     method: "POST",
@@ -86,7 +98,7 @@ export async function fetchArticleFromUrl(url: string): Promise<string> {
   } catch (error) {
     console.error("Error extracting article text:", error);
     throw new Error(
-      "Impossible de récupérer le contenu de l'article. Veuillez coller le contenu manuellement.",
+      "Impossible de récupérer le contenu de l'article. Veuillez coller le contenu manuellement."
     );
   }
 }

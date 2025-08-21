@@ -502,6 +502,34 @@
   border-radius: var(--border-radius-lg);
   padding: var(--spacing-xl);
   margin-top: var(--spacing-xl);
+  position: relative;
+  
+  &.contextLarge {
+    background: rgba(59, 130, 246, 0.1);
+    border-color: rgba(59, 130, 246, 0.2);
+    
+    .contextTitle {
+      color: #2563eb;
+    }
+  }
+  
+  &.contextMedium {
+    background: rgba(245, 158, 11, 0.1);
+    border-color: rgba(245, 158, 11, 0.2);
+    
+    .contextTitle {
+      color: #d97706;
+    }
+  }
+  
+  &.contextSmall {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: rgba(239, 68, 68, 0.2);
+    
+    .contextTitle {
+      color: #dc2626;
+    }
+  }
 }
 
 .contextTitle {
@@ -516,6 +544,13 @@
 
 .contextIcon {
   font-size: 1.25rem;
+}
+
+.contextHelpText {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-sm);
+  font-style: italic;
 }
 
 .contextText {

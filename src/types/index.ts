@@ -2,7 +2,9 @@ export interface QuizQuestion {
   id: string;
   question: string;
   answer: string;
-  context: string;
+  contextLarge: string;
+  contextMedium: string;
+  contextSmall: string;
 }
 
 export interface QuizResponse {

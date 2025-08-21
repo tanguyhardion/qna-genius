@@ -7,6 +7,9 @@ import {
   FaEyeSlash,
   FaFileAlt,
   FaFlag,
+  FaSearchPlus,
+  FaSearch,
+  FaSearchMinus,
 } from "react-icons/fa";
 import { IoSend } from "react-icons/io5";
 import { QuizQuestion, UserAnswer } from "@/types";
@@ -47,6 +50,63 @@ export default function Quiz({
   );
   const isLastQuestion = currentQuestionIndex === questions.length - 1;
 
+  // Determine which context to show based on number of wrong attempts
+  const getContextToShow = () => {
+    const attempts = currentAnswer?.attempts || 0;
+    if (attempts === 0) {
+      return currentQuestion.contextLarge;
+    } else if (attempts === 1) {
+      return currentQuestion.contextMedium;
+    } else {
+      // 2 or more attempts, show small context
+      return currentQuestion.contextSmall;
+    }
+  };
+
+  const getContextLabel = () => {
+    const attempts = currentAnswer?.attempts || 0;
+    if (attempts === 0) {
+      return "Contexte (général)";
+    } else if (attempts === 1) {
+      return "Contexte (intermédiaire)";
+    } else {
+      return "Contexte (spécifique)";
+    }
+  };
+
+  const getContextIcon = () => {
+    const attempts = currentAnswer?.attempts || 0;
+    if (attempts === 0) {
+      return <FaSearchMinus className={styles.contextIcon} />;
+    } else if (attempts === 1) {
+      return <FaSearch className={styles.contextIcon} />;
+    } else {
+      return <FaSearchPlus className={styles.contextIcon} />;
+    }
+  };
+
+  const getContextHelpText = () => {
+    const attempts = currentAnswer?.attempts || 0;
+    if (attempts === 0) {
+      return "Contexte général pour vous aider à comprendre le sujet.";
+    } else if (attempts === 1) {
+      return "Contexte plus ciblé après votre première tentative.";
+    } else {
+      return "Contexte très spécifique après plusieurs tentatives.";
+    }
+  };
+
+  const getContextClassName = () => {
+    const attempts = currentAnswer?.attempts || 0;
+    if (attempts === 0) {
+      return `${styles.contextCard} ${styles.contextLarge}`;
+    } else if (attempts === 1) {
+      return `${styles.contextCard} ${styles.contextMedium}`;
+    } else {
+      return `${styles.contextCard} ${styles.contextSmall}`;
+    }
+  };
+
   const adjustTextareaHeight = () => {
     const el = textareaRef.current;
     if (!el) return;
@@ -84,7 +144,7 @@ export default function Quiz({
       const response = await sendChatMessage(
         currentQuestion.question,
         currentQuestion.answer,
-        currentQuestion.context,
+        getContextToShow(),
         userInput.trim(),
         currentAnswer?.attempts || 0,
       );
@@ -226,13 +286,16 @@ export default function Quiz({
         </form>
       </div>
 
-      {currentQuestion.context && (
-        <div className={styles.contextCard}>
+      {currentQuestion.contextLarge && (
+        <div className={getContextClassName()}>
           <h3 className={styles.contextTitle}>
-            <FaFileAlt className={styles.contextIcon} />
-            Contexte :
+            {getContextIcon()}
+            {getContextLabel()}
           </h3>
-          <p className={styles.contextText}>{currentQuestion.context}</p>
+          <div className={styles.contextHelpText}>
+            {getContextHelpText()}
+          </div>
+          <p className={styles.contextText}>{getContextToShow()}</p>
         </div>
       )}
 
