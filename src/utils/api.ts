@@ -3,7 +3,7 @@ import { QuizResponse, ChatResponse, BackendQuizItem } from "@/types";
 const API_BASE_URL =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3001/api"
-    : "https://langchain-serverless.vercel.app/api";
+    : "https://qna-genius-backend.vercel.app/api";
 
 export async function generateQuiz(content: string): Promise<QuizResponse> {
   const response = await fetch(`${API_BASE_URL}/quiz`, {

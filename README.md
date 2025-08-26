@@ -2,7 +2,7 @@
 
 Q&A Genius is a modern Next.js application that transforms your articles into interactive quizzes to enhance your learning by leveraging **AI** technology.
 
-The **backend** can be found [here](https://github.com/tanguyhardion/langchain-serverless). Written in TypeScript, it uses LangChain to generate questions and provide feedback using an **AI** model.
+The **backend** can be found [here](https://github.com/tanguyhardion/qna-genius-backend). Written in TypeScript, it uses LangChain to generate questions and provide feedback using an **AI** model.
 
 ## 🌟 Features
 
