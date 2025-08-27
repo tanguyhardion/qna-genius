@@ -26,6 +26,7 @@ interface QuizProps {
   onComplete: () => void;
 }
 
+// displays a quiz question with chat interaction and context
 export default function Quiz({
   questions,
   currentQuestionIndex,
@@ -106,6 +107,7 @@ export default function Quiz({
     }
   };
 
+  // adjusts textarea height for user input
   const adjustTextareaHeight = () => {
     const el = textareaRef.current;
     if (!el) return;
@@ -122,7 +124,7 @@ export default function Quiz({
     adjustTextareaHeight();
   }, [userInput]);
 
-  // Auto-scroll to bottom of chat history when new responses are added
+  // auto-scrolls chat history to bottom when new responses added
   useEffect(() => {
     if (chatHistoryRef.current && currentAnswer?.chatResponses.length) {
       const chatContainer = chatHistoryRef.current;
@@ -133,6 +135,7 @@ export default function Quiz({
     }
   }, [currentAnswer?.chatResponses.length]);
 
+  // submits user answer and gets AI response
   const handleSubmitAnswer = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!userInput.trim()) return;
@@ -174,6 +177,7 @@ export default function Quiz({
     }
   };
 
+  // moves to next question or completes quiz
   const handleNext = () => {
     setShowAnswer(false); // Reset answer visibility for next question
     if (isLastQuestion) {
@@ -183,6 +187,7 @@ export default function Quiz({
     }
   };
 
+  // calculates progress percentage
   const progressPercentage =
     ((currentQuestionIndex + 1) / questions.length) * 100;
 
@@ -194,7 +199,6 @@ export default function Quiz({
           style={{ width: `${progressPercentage}%` }}
         ></div>
       </div>
-
       <div className={styles.questionCard}>
         <div className={styles.questionHeader}>
           <span className={styles.questionNumber}>
@@ -211,6 +215,7 @@ export default function Quiz({
         <h2 className={styles.questionText}>{currentQuestion.question}</h2>
 
         {currentAnswer && currentAnswer.chatResponses.length > 0 && (
+          // displays previous chat responses
           <div className={styles.chatHistory} ref={chatHistoryRef}>
             <h3 className={styles.chatTitle}>
               <HiChatBubbleLeftRight className={styles.chatIcon} />
@@ -286,21 +291,17 @@ export default function Quiz({
           </div>
         </form>
       </div>
-
       {currentQuestion.contextLarge && (
         <div className={getContextClassName()}>
           <h3 className={styles.contextTitle}>
             {getContextIcon()}
             {getContextLabel()}
           </h3>
-          <div className={styles.contextHelpText}>
-            {getContextHelpText()}
-          </div>
+          <div className={styles.contextHelpText}>{getContextHelpText()}</div>
           <p className={styles.contextText}>{getContextToShow()}</p>
         </div>
       )}
-
-      {/* Reveal Answer Section - Moved below quiz and context */}
+      {/* section to reveal the correct answer */}
       <div className={styles.revealSection}>
         {!showAnswer ? (
           <button

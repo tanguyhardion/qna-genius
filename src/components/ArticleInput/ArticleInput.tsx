@@ -13,6 +13,7 @@ interface ArticleInputProps {
   isLoading: boolean;
 }
 
+// allows users to input article content either by pasting text or providing a URL
 export default function ArticleInput({
   onSubmit,
   isLoading,
@@ -41,6 +42,7 @@ export default function ArticleInput({
       }
 
       setIsLoadingUrl(true);
+      // fetch article content from the provided URL
       try {
         const articleContent = await fetchArticleFromUrl(url.trim());
         if (!articleContent) {
@@ -49,6 +51,7 @@ export default function ArticleInput({
         onSubmit(articleContent);
         toast.success("Article récupéré avec succès !");
       } catch (err) {
+        // handle errors during article fetching
         const errorMessage =
           err instanceof Error
             ? err.message
@@ -60,6 +63,7 @@ export default function ArticleInput({
     }
   };
 
+  // adjusts textarea height to fit content up to max height
   const adjustTextareaHeight = () => {
     const el = textareaRef.current;
     if (!el) return;
@@ -74,9 +78,9 @@ export default function ArticleInput({
   useEffect(() => {
     // adjust whenever content or input type changes
     if (inputType === "text") adjustTextareaHeight();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [content, inputType]);
 
+  // determines if submit button should be disabled
   const isSubmitDisabled =
     isLoading ||
     isLoadingUrl ||

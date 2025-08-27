@@ -14,12 +14,14 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// app metadata
 export const metadata: Metadata = {
   title: "Q&A Genius",
   description:
     "Générez des quiz interactifs à partir d'articles et améliorez votre apprentissage",
 };
 
+// root layout component for the app
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -28,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <head>
-        {/* Google Analytics */}
+        {/* google analytics setup */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-PDRK18J638"
           strategy="afterInteractive"
@@ -44,6 +46,7 @@ export default function RootLayout({
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         {children}
+        {/* toast notifications setup */}
         <Toaster
           position="top-center"
           toastOptions={{

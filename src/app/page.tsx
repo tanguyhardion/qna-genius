@@ -11,7 +11,9 @@ import Quiz from "@/components/Quiz";
 import QuizSummary from "@/components/QuizSummary";
 import styles from "./page.module.scss";
 
+// main page component managing app flow
 export default function Home() {
+  // app state management
   const toast = useToast();
   const [appState, setAppState] = useState<AppState>({
     step: "input",
@@ -22,6 +24,7 @@ export default function Home() {
     isLoading: false,
   });
 
+  // handles article submission and quiz generation
   const handleArticleSubmit = async (content: string) => {
     setAppState((prev) => ({
       ...prev,
@@ -74,6 +77,7 @@ export default function Home() {
     }
   };
 
+  // updates user answer in state
   const handleAnswerUpdate = (answer: UserAnswer) => {
     setAppState((prev) => ({
       ...prev,
@@ -84,6 +88,7 @@ export default function Home() {
     }));
   };
 
+  // moves to next question
   const handleNext = () => {
     setAppState((prev) => ({
       ...prev,
@@ -94,6 +99,7 @@ export default function Home() {
     }));
   };
 
+  // completes the quiz
   const handleComplete = () => {
     setAppState((prev) => ({
       ...prev,
@@ -101,6 +107,7 @@ export default function Home() {
     }));
   };
 
+  // restarts the app
   const handleRestart = () => {
     setAppState({
       step: "input",
@@ -112,6 +119,7 @@ export default function Home() {
     });
   };
 
+  // loads mock data for development
   const handleDevModeTest = () => {
     const mockQuestions: QuizQuestion[] = [
       {
@@ -156,10 +164,12 @@ export default function Home() {
     <div className={styles.page}>
       <Header />
       {process.env.NODE_ENV === "development" && (
+        // dev mode button for testing
         <button onClick={handleDevModeTest} className={styles.devButton}>
           Dev: Load Test Quiz
         </button>
       )}
+      {/* main content area */}
       <main className={styles.main}>
         {appState.step === "input" && (
           <ArticleInput
@@ -187,6 +197,7 @@ export default function Home() {
           />
         )}
       </main>
+      {/* disclaimer footer */}
       <footer className={styles.disclaimer}>
         <span
           style={{ display: "inline-flex", alignItems: "center", gap: "0.5em" }}

@@ -15,15 +15,17 @@ interface QuizSummaryProps {
   onRestart: () => void;
 }
 
+// displays quiz summary with stats and question review
 export default function QuizSummary({
   questions,
   userAnswers,
   onRestart,
 }: QuizSummaryProps) {
+  // calculates quiz statistics
   const answeredQuestions = userAnswers.length;
   const totalAttempts = userAnswers.reduce(
     (sum, answer) => sum + answer.attempts,
-    0,
+    0
   );
   const averageAttempts = totalAttempts / answeredQuestions;
 
@@ -40,7 +42,6 @@ export default function QuizSummary({
             performance.
           </p>
         </div>
-
         <div className={styles.stats}>
           <div className={styles.statCard}>
             <div className={styles.statValue}>{answeredQuestions}</div>
@@ -57,7 +58,7 @@ export default function QuizSummary({
             <div className={styles.statLabel}>Moyenne par question</div>
           </div>
         </div>
-
+        {/* section for reviewing each question */}
         <div className={styles.questionsReview}>
           <h3 className={styles.reviewTitle}>
             <FaClipboardList className={styles.reviewIcon} />
@@ -66,7 +67,7 @@ export default function QuizSummary({
           <div className={styles.questionsList}>
             {questions.map((question, index) => {
               const userAnswer = userAnswers.find(
-                (a) => a.questionId === question.id,
+                (a) => a.questionId === question.id
               );
               return (
                 <div key={question.id} className={styles.questionItem}>
@@ -117,7 +118,7 @@ export default function QuizSummary({
                                   </span>
                                   <p>{response}</p>
                                 </div>
-                              ),
+                              )
                             )}
                           </div>
                         )}
@@ -130,8 +131,7 @@ export default function QuizSummary({
           </div>
         </div>
       </div>
-
-      {/* Fixed restart button at bottom of page */}
+      {/* fixed button to restart quiz */}
       <div className={styles.fixedRestartButton}>
         <button onClick={onRestart} className="btn btn-primary">
           <FaRotate className={styles.actionIcon} />

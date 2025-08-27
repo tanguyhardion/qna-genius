@@ -2,6 +2,7 @@ import { IoSparkles } from "react-icons/io5";
 import { FaBolt, FaLightbulb } from "react-icons/fa6";
 import styles from "./Header.module.scss";
 
+// displays the app header with title and AI branding
 export default function Header() {
   return (
     <header className={styles.header}>

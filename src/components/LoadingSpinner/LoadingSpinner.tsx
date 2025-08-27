@@ -6,6 +6,7 @@ interface LoadingSpinnerProps {
   variant?: "dots" | "pulse" | "spin";
 }
 
+// renders a loading spinner with different variants and sizes
 export default function LoadingSpinner({
   size = "medium",
   text,

@@ -29,7 +29,7 @@ export async function generateQuiz(content: string): Promise<QuizResponse> {
       contextLarge: item.contextLarge,
       contextMedium: item.contextMedium,
       contextSmall: item.contextSmall,
-    })
+    }),
   );
 
   return {
@@ -44,7 +44,7 @@ export async function sendChatMessage(
   contextMedium: string,
   contextSmall: string,
   userMessage: string,
-  attemptCount: number = 0
+  attemptCount: number = 0,
 ): Promise<ChatResponse> {
   const response = await fetch(`${API_BASE_URL}/chat`, {
     method: "POST",
@@ -102,7 +102,7 @@ export async function fetchArticleFromUrl(url: string): Promise<string> {
   } catch (error) {
     console.error("Error extracting article text:", error);
     throw new Error(
-      "Impossible de récupérer le contenu de l'article. Veuillez coller le contenu manuellement."
+      "Impossible de récupérer le contenu de l'article. Veuillez coller le contenu manuellement.",
     );
   }
 }
